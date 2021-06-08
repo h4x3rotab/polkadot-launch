@@ -10,18 +10,19 @@ export interface ParachainNodeConfig {
 	rpcPort: number;
 	wsPort: number;
 	port: number;
+	name?: string;
 	flags: string[];
 }
 export interface ParachainConfig {
 	bin: string;
-	id: string;
+	id?: string;
 	balance: string;
 	chain?: string;
 	nodes: ParachainNodeConfig[];
 }
 export interface SimpleParachainConfig {
 	bin: string;
-	id: string;
+	id?: string;
 	port: string;
 	balance: string;
 }
@@ -40,7 +41,7 @@ export interface RelayChainConfig {
 		port: number;
 		flags?: string[];
 	}[];
-	runtime_genesis_config?: JSON;
+	genesis?: JSON;
 }
 
 export interface ChainSpec {
@@ -63,4 +64,15 @@ export interface ChainSpec {
 			};
 		};
 	};
+}
+
+export interface ResolvedParachainConfig extends ParachainConfig {
+	resolvedId: string;
+}
+export interface ResolvedSimpleParachainConfig extends SimpleParachainConfig {
+	resolvedId: string;
+}
+export interface ResolvedLaunchConfig extends LaunchConfig {
+	parachains: ResolvedParachainConfig[];
+	simpleParachains: ResolvedSimpleParachainConfig[];
 }
